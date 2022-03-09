@@ -1,16 +1,17 @@
 ﻿cmake_minimum_required(VERSION 3.8)
 
 if(${PLATFORM} STREQUAL "Linux")
-
-	SET(UE_ENGINE_PATH /home/ppm/trunk/Engine)
-	SET(CLANG_PATH ${UE_ENGINE_PATH}/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v16_clang-9.0.1-centos7/x86_64-unknown-linux-gnu)
+	if(NOT DEFINED ENV{UE_ENGINE_PATH})
+        message(FATAL_ERROR "not env UE_ENGINE_PATH")
+	endif()
+	
+	SET(CLANG_PATH $ENV{UE_ENGINE_PATH}/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v16_clang-9.0.1-centos7/x86_64-unknown-linux-gnu)
 
 	SET(CMAKE_CXX_COMPILER ${CLANG_PATH}/bin/clang++)
 	SET(CMAKE_C_COMPILER ${CLANG_PATH}/bin/clang)
 
-
 elseif(${PLATFORM} STREQUAL "Window")
-message(${PLATFORM})
+    message(${PLATFORM})
 	#set(CMAKE_CXX_FLAGS_RELEASE "/GS /W3 /Gy " )
 	set(CMAKE_BUILD_TYPE Release CACHE STRING “set build type to release”)
 
